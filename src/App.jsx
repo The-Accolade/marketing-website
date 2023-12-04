@@ -2,6 +2,9 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import ErrorPage from './pages/ErrorPage'
+import Login  from './pages/login'
+
+
 import {
   createBrowserRouter,
   RouterProvider, 
@@ -26,6 +29,10 @@ const router = createBrowserRouter([
     path: '*',
     element: <ErrorPage />
   },
+  {
+  path: '/login',
+element: <Login />
+},
 ]);
 
 
