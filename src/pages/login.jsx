@@ -1,7 +1,28 @@
 // src/pages/LoginPage.jsx
-import React from 'react';
+import React, { useState } from 'react';
+import Modal from 'react-modal';
 
 const LoginPage = () => {
+    const [username, setusername] = useState('');
+    const [password, setPassword] = useState('');
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [message, setMessage] = useState('');
+
+    const validateForm = (event) => {
+        event.preventDefault();
+        if (!username || !password) {
+            setMessage('All fields must be filled');
+        } else {
+            // Add your validation for email and password here
+            setMessage('Success! You are now signed in.');
+        }
+        setModalIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
+    
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Image Section */}
@@ -20,7 +41,7 @@ const LoginPage = () => {
           <p className='text-base text-gray-500 font-normal mb-4 w-3/4'>Log in and connect your product with prospective users</p>
 
           {/* login form */}
-          <form>
+          <form onSubmit={validateForm}>
             <div className="mb-4">
               <label className="block text-gray-700 text-base capitalize font-normal mb-2" htmlFor="username">
                 Username
@@ -31,6 +52,7 @@ const LoginPage = () => {
                 id="username"
                 name="username"
                 placeholder="Enter your username"
+                required onChange={e => setusername(e.target.value)}
                 style={{ borderColor: '#0991FF' }}
               />
             </div>
@@ -45,6 +67,7 @@ const LoginPage = () => {
                 id="password"
                 name="password"
                 placeholder="Enter your password"
+                required onChange={e => setPassword(e.target.value)}
                 style={{ borderColor: '#0991FF' }}
               />
             </div>
@@ -63,6 +86,33 @@ const LoginPage = () => {
       </div>
         </div>
       </div>
+      <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                style={{
+                    content: {
+                        top: '40%',
+                        left: '50%',
+                        right: 'auto',
+                        bottom: 'auto',
+                        marginRight: '-50%',
+                        transform: 'translate(-50%, -50%)',
+                        backgroundColor: 'white',
+                        color: 'black',
+                        border: 'none',
+                        padding: '20px',
+                        borderRadius: '5px',
+                        width: '300px',
+                    },
+                    overlay: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                    },
+                }}
+                contentLabel="Message Modal"
+            >
+                <h2>{message}</h2>
+                <button  className='flex mx-auto mt-5 bg-[#0991FF] px-3 text-white' onClick={closeModal}>Close</button>
+            </Modal>
     </div>
   );
 };
