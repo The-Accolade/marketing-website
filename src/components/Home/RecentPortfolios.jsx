@@ -3,31 +3,57 @@ import {recentPortfolios} from "../../helpers/AboutUsDetails"
 // console.log(recentPortfolios);'
 
 const RecentPortfolios = () => {
-    const settings = {  
-        infinite: true,
-        autoplay: true,
-        autoplaySpeed: 5000,
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-    }
+    const settings = {
+			infinite: true,
+			autoplay: true,
+			autoplaySpeed: 5000,
+			speed: 500,
+			slidesToShow: 4,
+			slidesToScroll: 1,
+			responsive: [
+				{
+					breakpoint: 1024,
+					settings: {
+						slidesToShow: 3,
+						slidesToScroll: 1,
+					},
+				},
+				{
+					breakpoint: 768,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 2,
+					},
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1,
+					},
+				},
+				// You can unslick at a given breakpoint now by adding:
+				// settings: "unslick"
+				// instead of a settings object
+			],
+		};
 
   return (
     <section className="py-[70px]">
-        <div className="px-[200px]">
+        <div className="px-[200px] max-md:px-[50px]">
             <h3 className="uppercase text-primary font-semibold">projects</h3>
             <div className="flex justify-between items-center py-5">
                 <h4 className="font-bricolage font-semibold text-[36px]">Recent Portfolios</h4>
                 <button className="py-[10px] px-[20px] bg-shadeTwo text-whiteShade text-sm font-semibold transition-all duration-500 ease-in-out hover:shadow-lg hover:shadow-primary">View Projects</button>
             </div>
         </div>
-        <div className="px-[100px] pt-[50px] h-[400px]">
+        <div className="px-[100px] pt-[50px] h-[400px] max-md:px-[50px">
             <Slider {...settings} className="h-full flex gap-5">
                 {
                     recentPortfolios.map((item, index) => (
                         <div key={index} className='relative h-[300px] w-[250px] overflow-hidden cursor-pointer group'>
                             <div className="absolute z-10 h-full w-full bg-black group-hover:bg-primary group-hover:bg-opacity-80 bg-opacity-50 transition-all duration-500 ease-in-out"></div>
-                            <img className="absolute z-0 h-full min-w-full group-hover:scale-110 transition-all duration-1000 ease-in-out" src={item.image} />
+                            <img className="absolute z-0 h-full min-w-full max-md:w-[270px] group-hover:scale-110 transition-all duration-1000 ease-in-out" src={item.image} />
                             <div className="z-20 absolute text-whiteShade bottom-[10px] left-[10px]">
                                 <p className="font-medium text-[12px]">{item.category}</p>
                                 <h5 className="font-bricolage font-semibold">{item.label}</h5>
